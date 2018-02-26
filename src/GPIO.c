@@ -1,3 +1,16 @@
+/**
+ * @file GPIO.c
+ * @brief KL25Z GPIO abstraction layer function implementations
+ *
+ * Here we abstract the use of General Purpose Input Output registers
+ * to control I/O pins on the KL25Z. This implements the functions
+ * defined in GPIO.h
+ *
+ * @author Zachary Asmussen
+ * @date February 21st, 2018
+ *
+ */
+
 #include "GPIO.h"
 
 

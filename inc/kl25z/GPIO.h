@@ -1,4 +1,3 @@
-
 /**
  * @file GPIO.h
  * @brief KL25Z GPIO abstraction layer for manipulating I/O

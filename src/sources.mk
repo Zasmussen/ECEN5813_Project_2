@@ -7,7 +7,7 @@
 # @author Zachary Asmussen
 # @date January 30th, 2018
 #
-SRCS = main.c conversion.c data.c debug.c project1.c memory.c GPIO.c
+SRCS = main.c conversion.c data.c debug.c project1.c memory.c GPIO.c circbuf.c
 
 # Add in KL25Z files if platform is set to it
 ifeq ($(PLATFORM),KL25Z)
