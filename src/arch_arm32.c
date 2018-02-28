@@ -19,37 +19,37 @@ __attribute__((always_inline)) inline uint32_t ARM32_AIRCR_get_endianness_settin
 }
 
 
-__attribute__((always_inline)) uint32_t ARM32_CCR_get_stack_alignment()
+__attribute__((always_inline)) inline uint32_t ARM32_CCR_get_stack_alignment()
 {
-
+  return 0;
 }
 
 
-__attribute__((always_inline)) uint32_t ARM32_CPUID_get_part_number()
+__attribute__((always_inline)) inline uint32_t ARM32_CPUID_get_part_number()
 {
-
+  return 0;
 }
 
 
-__attribute__((always_inline)) uint32_t ARM32_CCR_enable_divide_by_zero_trap()
+__attribute__((always_inline)) inline uint32_t ARM32_CCR_enable_divide_by_zero_trap()
 {
-
+  return 0;
 }
 
 
-__attribute__((always_inline)) uint32_t ARM32_CCR_enable_divide_by_zero_trap()
+__attribute__((always_inline)) inline uint32_t ARM32_CCR_enable_unaligned_access_trap()
 {
-
+  return 0;
 }
 
 
 void ARM32_create_divide_by_zero_trap()
 {
-
+  return;
 }
 
 
 void ARM32_create_unaligned_access_trap()
 {
-
+  return;
 }

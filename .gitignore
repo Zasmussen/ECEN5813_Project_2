@@ -2,3 +2,6 @@
 *.o
 *.elf
 *.map
+*.cproject
+*.project
+*.settings

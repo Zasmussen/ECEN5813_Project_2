@@ -10,16 +10,21 @@
  *
  */
 #include "project1.h"
-
-
+#include "GPIO.h"
 int main(void)
 {
   uint32_t i;
   #ifdef PROJECT1
     project1();
   #endif
+
+  #ifdef PROJECT2
+    GPIO_Configure();
+  #endif
+  GPIO_Configure();
   while(1)
   {
-    i++;
+    Toggle_Red_LED();
+    for(i=0;i<1000000;i++);
   }
 }

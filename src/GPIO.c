@@ -12,51 +12,63 @@
  */
 
 #include "GPIO.h"
-
+#include "MKL25Z4.h"
 
 void GPIO_Configure()
 {
-
+  SIM_SCGC5 |= (SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTD_MASK);
+  GPIOB->PDDR |= (RGB_RED_PIN | RGB_GREEN_PIN);
+  GPIOD->PDDR |= (RGB_BLUE_PIN);
+  GPIOB->PDOR &= ~(RGB_RED_PIN | RGB_GREEN_PIN);
+  GPIOD->PDOR &= ~(RGB_BLUE_PIN);
+  return;
 }
 
 
 void Toggle_Red_LED()
 {
-
+  GPIOB->PTOR |= RGB_RED_PIN;
+  return;
 }
 
 
 void PORTB_Set(uint8_t bit_num)
 {
-
+  GPIOB->PSOR |= (1 << bit_num);
+  return;
 }
 
 
 void PORTD_Set(uint8_t bit_num)
 {
-
+  GPIOD->PSOR |= (1 << bit_num);
+  return;
 }
 
 
 void PORTB_Clear(uint8_t bit_num)
 {
-
+  GPIOB->PCOR |= (1 << bit_num);
+  return;
 }
 
 
 void PORTD_Clear(uint8_t bit_num)
 {
-
+  GPIOD->PCOR |= (1 << bit_num);
+  return;
 }
 
 
 void PORTB_Toggle(uint8_t bit_num)
 {
-
+  GPIOB->PTOR |= (1 << bit_num);
+  return;
 }
 
 
 void PORTD_Toggle(uint8_t bit_num)
 {
-
+  GPIOD->PTOR |= (1 << bit_num);
+  return;
 }

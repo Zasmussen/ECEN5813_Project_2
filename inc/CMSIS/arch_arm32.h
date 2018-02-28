@@ -94,7 +94,7 @@ __attribute__((always_inline)) uint32_t ARM32_CCR_enable_divide_by_zero_trap();
  *
  * @return a 0 if successful and a 1 if an error
  */
-__attribute__((always_inline)) uint32_t ARM32_CCR_enable_divide_by_zero_trap();
+__attribute__((always_inline)) uint32_t ARM32_CCR_enable_unaligned_access_trap();
 
 
 

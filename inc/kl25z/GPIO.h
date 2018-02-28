@@ -14,9 +14,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#define RGB_RED_PIN   ()
-#define RGB_GREEN_PIN ()
-#define RGB_BLUE_PIN  ()
+#define RGB_RED_PIN   (1 << 18)      // PTB18
+#define RGB_GREEN_PIN (1 << 19)      // PTB19
+#define RGB_BLUE_PIN  (1 << 1)      // PTD1
 
 #define RGB_RED_ON()          (PORTB_Set(RGB_RED_PIN))
 #define RGB_RED_OFF()         (PORTB_Clear(RGB_RED_PIN))
