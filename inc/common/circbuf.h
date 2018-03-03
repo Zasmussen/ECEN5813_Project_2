@@ -16,11 +16,11 @@
 #include <stdlib.h>
 
 typedef struct {
-  uint8_t * basePtr;
-  uint8_t * head;
-  uint8_t * tail;
-  size_t length;
-  size_t count;
+   uint8_t * basePtr;
+   uint8_t * head;
+   uint8_t * tail;
+   size_t length;
+   size_t count;
 } CB_t;
 
 typedef enum {
@@ -31,6 +31,10 @@ typedef enum {
   CB_EMPTY,
 } CB_e;
 
+#define CB_IS_FULL      1
+#define CB_NOT_FULL     0
+#define CB_IS_EMPTY     1
+#define CB_NOT_EMPTY    0
 
 /**
  * @brief Initializes the circular buffer
@@ -43,7 +47,7 @@ typedef enum {
  * @param length is the length of the buffer
  * @return is of enumeration type CB_e for certain error codes
  */
-CB_e CB_init(uint8_t * buffPtr, uint32_t length);
+CB_e CB_init(CB_t ** buffPtr, uint32_t length);
 
 
 /**
@@ -55,7 +59,7 @@ CB_e CB_init(uint8_t * buffPtr, uint32_t length);
  * @param buffPtr is the pointer to the circular buffer
  * @return is of enumeration type CB_e for certain error codes
  */
-CB_e CB_destroy(uint8_t * buffPtr);
+CB_e CB_destroy(CB_t * buffPtr);
 
 
 /**
@@ -68,7 +72,7 @@ CB_e CB_destroy(uint8_t * buffPtr);
  * @param data holds the value to be added into the buffer
  * @return is of enumeration type CB_e for certain error codes
  */
-CB_e CB_buffer_add_item(uint8_t * buffPtr, uint8_t data);
+CB_e CB_buffer_add_item(CB_t * buffPtr, uint8_t data);
 
 
 /**
@@ -81,7 +85,7 @@ CB_e CB_buffer_add_item(uint8_t * buffPtr, uint8_t data);
  * @param value is where we store the variable that we removed
  * @return is of enumeration type CB_e for certain error codes
  */
-CB_e CB_buffer_remove_item(uint8_t * buffPtr, uint8_t * value);
+CB_e CB_buffer_remove_item(CB_t * buffPtr, uint8_t * value);
 
 
 /**
@@ -93,7 +97,7 @@ CB_e CB_buffer_remove_item(uint8_t * buffPtr, uint8_t * value);
  * @param buffPtr is the pointer to the circular buffer
  * @return is of enumeration type CB_e for certain error codes
  */
-__attribute__((always_inline))inline CB_e CB_is_full(uint8_t * buffPtr);
+__attribute__((always_inline))inline CB_e CB_is_full(CB_t * buffPtr);
 
 /**
  * @brief Checks if a buffer is empty
@@ -104,6 +108,6 @@ __attribute__((always_inline))inline CB_e CB_is_full(uint8_t * buffPtr);
  * @param buffPtr is the pointer to the circular buffer
  * @return is of enumeration type CB_e for certain error codes
  */
-__attribute__((always_inline))inline CB_e CB_is_empty(uint8_t * buffPtr);
+__attribute__((always_inline))inline CB_e CB_is_empty(CB_t * buffPtr);
 
 #endif
