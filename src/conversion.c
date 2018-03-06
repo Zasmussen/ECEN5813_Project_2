@@ -22,6 +22,12 @@ uint8_t my_itoa(int32_t data, uint8_t * ptr, uint32_t base)
   {
     return -1;
   }
+  if(data == 0)
+  {
+    *ptr = data+48;
+    *(ptr+1) = '\0';
+    return 2;
+  }
   uint32_t i = 0;
   uint8_t neg = 0;
   if(data < 0)
@@ -69,7 +75,7 @@ int32_t my_atoi(uint8_t * ptr, uint8_t digits, uint32_t base)
     neg++;
     digits--;
   }
-  uint8_t * arr = (uint8_t*)reserve_words(digits/WORD_SIZE_IN_BYTES);
+  uint8_t * arr = (uint8_t*)reserve_words(digits/*WORD_SIZE_IN_BYTES*/);
   for(i=0;i<digits;i++)
   {
     if(*(ptr+i) < 58)

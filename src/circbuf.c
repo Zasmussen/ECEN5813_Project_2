@@ -50,6 +50,8 @@ CB_e CB_destroy(CB_t * buffPtr)
   }
   free(buffPtr->basePtr);
   buffPtr->basePtr = NULL;
+  buffPtr->head = NULL;
+  buffPtr->tail = NULL;
   free(buffPtr);
   buffPtr = NULL;
   return SUCCESS;
@@ -68,7 +70,7 @@ CB_e CB_buffer_add_item(CB_t * buffPtr, uint8_t data)
   }
 
   // Check if first item added, should only happen once
-  if(buffPtr->head == buffPtr->tail && !*(buffPtr)->head)
+  if((buffPtr->head == buffPtr->tail) && !(buffPtr->count))
   {
     *(buffPtr)->head = data;
     buffPtr->count++;
@@ -105,9 +107,13 @@ CB_e CB_buffer_remove_item(CB_t * buffPtr, uint8_t * value)
   }
 
   *(value) = *(buffPtr)->tail;
-
+  *(buffPtr)->tail = 0;
   // Check for circular
-  if(buffPtr->tail == (buffPtr->basePtr + buffPtr->length -1))
+  if(buffPtr->count == 1)
+  {
+
+  }
+  else if(buffPtr->tail == (buffPtr->basePtr + buffPtr->length -1))
   {
     buffPtr->tail = buffPtr->basePtr;
   }
@@ -115,6 +121,8 @@ CB_e CB_buffer_remove_item(CB_t * buffPtr, uint8_t * value)
   {
     buffPtr->tail++;
   }
+
+  buffPtr->count--;
   return SUCCESS;
 }
 
