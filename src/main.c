@@ -1,29 +1,28 @@
 /**
  * @file main.c
- * @brief Main project file set for project1 currently
+ * @brief Main project file set for project control
  *
  * Main file which will currently run project1() function
- * and eventually other functions
+ * and project2() function
  *
  * @author Zachary Asmussen
  * @date January 30th, 2018
  *
  */
 #include "project1.h"
-#include "GPIO.h"
-#include "circbuf.h"
+#include "project2.h"
 #include <stdio.h>
 #include "MKL25Z4.h"
 #include "project2.h"
 int main(void)
 {
-  uint32_t i = 0;
+  uint32_t i;
   #ifdef PROJECT1
     project1();
   #endif
 
   #ifdef PROJECT2
-    //GPIO_Configure();
+    project2();
   #endif
   //GPIO_Configure();
 //  CB_t * buffer = NULL;
@@ -56,8 +55,7 @@ int main(void)
 
   while(1)
   {
-   // Toggle_Red_LED();
-    for(i=0;i<1000000;i++);
+    i++;
   }
 }
 

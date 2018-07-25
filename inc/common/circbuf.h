@@ -31,11 +31,6 @@ typedef enum {
   CB_EMPTY,
 } CB_e;
 
-#define CB_IS_FULL      1
-#define CB_NOT_FULL     0
-#define CB_IS_EMPTY     1
-#define CB_NOT_EMPTY    0
-
 /**
  * @brief Initializes the circular buffer
  *

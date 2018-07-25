@@ -1,10 +1,8 @@
 
 /**
  * @file UART.h
- * @brief Circular buffer implementation file
+ * @brief UART configuration sending and receiving
  *
- * This file contains a complete circular buffer implementation
- * from creation to deleting a uint8_t type circular buffer
  *
  * @author Zachary Asmussen
  * @date February 21st, 2018
@@ -14,78 +12,92 @@
 #define __UART_H__
 #include <stdint.h>
 #include <stdlib.h>
+#include "MKL25Z4.h"
+#include "circbuf.h"
 
-#define BAUD_RATE
 
+#define BAUD_RATE       19200
+#define UART0_CLOCK     48000000
+#define OSR             0x0F
+#define CALCULATED_BDH  (((DEFAULT_SYSTEM_CLOCK/((OSR+1)*BAUD_RATE))&0x1F00)>>8)
+#define CALCULATED_BDL  ((DEFAULT_SYSTEM_CLOCK/((OSR+1)*BAUD_RATE))&0xFF)
+#define PCR2            2
+#define IRQC            0
+#define ISF1            1
+#define UARTCLR         3
+#define FLLPLL          1
+#define  FLLPLLCLR      1
+#define FLLSEL          0
+#define RXCLR           1
+#define RXSEL           0
+#define TXCLR           3
+#define TXSEL           0
+#define C1PT            0
+#define C1PE            0
+#define C1ILT           1
+#define C1WAKE          0
+#define C1M             0
+#define C1RSRC          0
+#define C1DOZEEN        0
+#define C1LOOPS         0
+#define C2SBK           0
+#define C2RWU           0
+#define C2RE            1
+#define C2TE            1
+#define C2ILIE          0
+#define C2RIE           1
+#define C2TCIE          0
+#define C2TIE           0
 /**
  * @brief Configures UART settings
  *
- * This function
+ * This function configures our UART settings
  *
- * @param buffPtr is the pointer to the circular buffer
- * @param length is the length of the buffer
- * @return is of enumeration type CB_e for certain error codes
+ * @return is the status of the function
  */
- UART_configure();
+uint8_t UART_configure();
 
 
 /**
- * @brief Destroys a circular buffer
+ * @brief Sends UART byte
  *
- * This function frees all of the memory allocated at the circular buffer
- * initialization and sets any necessary pointers to NULL
- *
- * @param buffPtr is the pointer to the circular buffer
- * @return is of enumeration type CB_e for certain error codes
+ * @param value is the value to send
+ * @return is the status of the function
  */
-CB_e UART_send();
+uint8_t UART_send(uint8_t value);
 
 
 /**
- * @brief Adds an item to a circular buffer
+ * @brief Sends n UART bytes
  *
- * This function adds an item to our circular buffer from a pointer to that
- * buffer and data to be added
- *
- * @param buffPtr is the pointer to the circular buffer
- * @param data holds the value to be added into the buffer
- * @return is of enumeration type CB_e for certain error codes
+ * @param value is the pointer to the array to send
+ * @param size is the size of the array
+ * @return is the status of the function
  */
-CB_e UART_send_n();
+uint8_t UART_send_n(uint8_t * value, size_t size);
 
 
 /**
- * @brief Removes an item from a circular buffer
+ * @brief Receives UART byte
  *
- * This function removes an item from our circular buffer and saves this
- * value into a variable put into the function
- *
- * @param buffPtr is the pointer to the circular buffer
- * @param value is where we store the variable that we removed
- * @return is of enumeration type CB_e for certain error codes
+ * @param value is where to store received byte
+ * @return is the status of the function
  */
-CB_e UART_receive();
+uint8_t UART_receive(uint8_t * value);
 
 
 /**
- * @brief Checks if a buffer is full
+ * @brief Receivces n UART bytes
  *
- * This function takes in a circular buffer and checks whether or not
- * the buffer is full
- *
- * @param buffPtr is the pointer to the circular buffer
- * @return is of enumeration type CB_e for certain error codes
+ * @param value is where to store received bytes
+ * @param size is the amount to receive
+ * @return is the status of the function
  */
- UART_receive_n();
+uint8_t UART_receive_n(uint8_t * value, size_t size);
 
 /**
- * @brief Checks if a buffer is empty
+ * @brief Interrupt handler for UART0
  *
- * This function takes in a circular buffer and checks whether or not
- * the buffer is empty
- *
- * @param buffPtr is the pointer to the circular buffer
- * @return is of enumeration type CB_e for certain error codes
  */
 void UART0_IRQHandler();
 

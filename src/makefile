@@ -18,7 +18,11 @@ include sources.mk
 PLATFORM = HOST
 CC = gcc
 LD = $(CC)
-VERB = -DVERBOSE
+VERB =
+
+ifdef CMOCKA
+	VERB += -DCMOCKA
+endif
 
 # MKL25Z specific settings including loading flags and CPU information
 ifeq ($(PLATFORM),KL25Z)
@@ -26,24 +30,24 @@ ifeq ($(PLATFORM),KL25Z)
 	CPU=cortex-m0plus
 	ARCH=armv6-m
 	SPECS = nosys.specs
-	VERB =
+	VERB = -DKL25Z
 
 	LDFILE= ../platform/MKL25Z128xxx4_flash.ld
 	LDFLAGS = -T$(LDFILE) #-Xlinker
 	LD=arm-none-eabi-g++#$(CC)
 
-	ARMFLAGS = -mcpu=$(CPU) -mthumb -march=$(ARCH) --specs=$(SPECS) -mfloat-abi=soft -mfpu=fpv4-sp-d16
+	ARMFLAGS = -mcpu=$(CPU) -mthumb -march=$(ARCH) --specs=$(SPECS) -mfloat-abi=soft #-mfpu=fpv4-sp-d16
 
 # HOST platform setting, same as default setting
 else ifeq ($(PLATFORM),HOST)
 	CC = gcc
-	VERB = -DVERBOSE
+	VERB = -DVERBOSE -DHOST
 	LD = $(CC)
 
 # Cross compiling of Beaglebone Black system
 else ifeq ($(PLATFORM),BBB)
 	CC = arm-linux-gnueabihf-gcc
-	VERB = -DVERBOSE
+	VERB = -DVERBOSE -DBBB
 	LD = $(CC)
 endif
 
@@ -51,9 +55,12 @@ endif
 CSTD=c99
 COMMONFLAGS = -std=$(CSTD) -Wall -Werror -O0 -g -fgnu89-inline
 CPPFLAGS = $(VERB) -DPROJECT2
-LDFLAGS += -Wl,-Map=main.map
+LDFLAGS += -Wl,-Map=main.map$(ARMLDFLAGS)
 CFLAGS += $(COMMONFLAGS) $(ARMFLAGS)
 
+ifdef CMOCKA
+	CFLAGS += -L/usr/lib -l cmocka
+endif
 
 TARGET = project2.elf
 
@@ -66,19 +73,19 @@ OBJS := $(OBJS:.S=.o)
 
 # Create object for every C file
 %.o : %.c
-	$(CC) $< $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c -o $@
+	$(CC) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 # Creates assembly file for every C file
 %.asm : %.c
-	$(CC) $< $(CFLAGS) $(INCLUDES) -S -o $@
+	$(CC) $(INCLUDES) $(CFLAGS) -S $< -o $@
 
 # Creates object file for every user create .S file
 %.o : %.S
-	$(CC) $< $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -c  -o $@
+	$(CC) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 # Creates pre-processed output files of every C file
 %.i : %.c
-	$(CC) $(CPPFLAGS) -E $< -o $@
+	$(CC) $(INCLUDES) $(CPPFLAGS) -E $< -o $@
 
 # Create main object file
 .PHONY: build
@@ -95,4 +102,4 @@ compile-all: $(OBJS)
 
 # Final link to create .elf file
 $(TARGET): $(OBJS)
-	$(LD) $(OBJS) $(INCLUDES) $(CFLAGS) $(LDFLAGS) -o $@
+	$(LD) $(INCLUDES) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@
