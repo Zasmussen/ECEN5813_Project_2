@@ -140,7 +140,6 @@ Reset_Handler:
     str    r0, [r2,r3]
     bgt    .LC1
 .LC0:
-
 #ifdef __STARTUP_CLEAR_BSS
 /*     This part of work usually is done in C library startup code. Otherwise,
  *     define this macro to enable it in this startup.

@@ -30,7 +30,7 @@ ifeq ($(PLATFORM),KL25Z)
 
 	LDFILE= ../platform/MKL25Z128xxx4_flash.ld
 	LDFLAGS = -T$(LDFILE) #-Xlinker
-	LD=$(CC)
+	LD=arm-none-eabi-g++#$(CC)
 
 	ARMFLAGS = -mcpu=$(CPU) -mthumb -march=$(ARCH) --specs=$(SPECS) -mfloat-abi=soft -mfpu=fpv4-sp-d16
 
@@ -49,7 +49,7 @@ endif
 
 # Sets all flags and compiler settings for build
 CSTD=c99
-COMMONFLAGS = -std=$(CSTD) -Wall -Werror -g -O0 -fgnu89-inline
+COMMONFLAGS = -std=$(CSTD) -Wall -Werror -O0 -g -fgnu89-inline
 CPPFLAGS = $(VERB) -DPROJECT2
 LDFLAGS += -Wl,-Map=main.map
 CFLAGS += $(COMMONFLAGS) $(ARMFLAGS)

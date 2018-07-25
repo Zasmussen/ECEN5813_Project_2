@@ -13,6 +13,8 @@
 #include "GPIO.h"
 #include "circbuf.h"
 #include <stdio.h>
+#include "MKL25Z4.h"
+#include "project2.h"
 int main(void)
 {
   uint32_t i = 0;
@@ -24,37 +26,65 @@ int main(void)
     //GPIO_Configure();
   #endif
   //GPIO_Configure();
-  CB_t * buffer = NULL;
-  CB_init(&buffer,10);
-  CB_buffer_add_item(buffer,1);
-  CB_buffer_add_item(buffer,2);
-  CB_buffer_add_item(buffer,3);
-  CB_buffer_add_item(buffer,4);
-  CB_buffer_add_item(buffer,5);
-  CB_buffer_add_item(buffer,6);
-  CB_buffer_add_item(buffer,7);
-  CB_buffer_add_item(buffer,8);
-  CB_buffer_add_item(buffer,9);
-  CB_buffer_add_item(buffer,10);
-  uint8_t x;
-  CB_buffer_remove_item(buffer,&x);
-  CB_buffer_remove_item(buffer,&x);
-  CB_buffer_remove_item(buffer,&x);
-  CB_buffer_remove_item(buffer,&x);
-  CB_buffer_remove_item(buffer,&x);
-  printf("Num: %d\n",x);
+//  CB_t * buffer = NULL;
+//  CB_init(&buffer,10);
+//  CB_buffer_add_item(buffer,1);
+//  CB_buffer_add_item(buffer,2);
+//  CB_buffer_add_item(buffer,3);
+//  CB_buffer_add_item(buffer,4);
+//  CB_buffer_add_item(buffer,5);
+//  CB_buffer_add_item(buffer,6);
+//  CB_buffer_add_item(buffer,7);
+//  CB_buffer_add_item(buffer,8);
+//  CB_buffer_add_item(buffer,9);
+//  CB_buffer_add_item(buffer,10);
+//  uint8_t x;
+//  CB_buffer_remove_item(buffer,&x);
+//  CB_buffer_remove_item(buffer,&x);
+//  CB_buffer_remove_item(buffer,&x);
+//  CB_buffer_remove_item(buffer,&x);
+//  CB_buffer_remove_item(buffer,&x);
+  //printf("Num: %d\n",x);
 //  printf("%d\n",*(buffer->tail+1));
-  while(*(buffer->tail+i))
-  {
-    printf("%d\n",*(buffer->tail+i));
-    i++;
-  }
-
+//  while(*(buffer->tail+i))
+//  {
+//    printf("%d\n",*(buffer->tail+i));
+//    i++;
+//  }
+//
 
 
   while(1)
   {
-    //Toggle_Red_LED();
+   // Toggle_Red_LED();
     for(i=0;i<1000000;i++);
   }
 }
+
+//void USB0_IRQHandler()
+//{
+//	int x = 0;
+//	printf("%d\n",x);
+//
+//}
+//
+//void UART2_IRQHandler()
+//{
+//	int x = 0;
+//	printf("%d\n",x);
+//
+//}
+//
+//void UART1_IRQHandler()
+//{
+//	int x = 0;
+//	printf("%d\n",x);
+//
+//}
+//
+//void UART0_IRQHandler()
+//{
+//	int x = 0;
+//	printf("%d\n",x);
+//
+//}
